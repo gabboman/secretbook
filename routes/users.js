@@ -2,12 +2,36 @@ var models  = require('../models');
 var express = require('express');
 var router  = express.Router();
 
-router.post('/create', function(req, res) {
-  models.User.create({
-    username: req.body.username
+
+
+//cosas de login con bcrypt:
+
+var bcrypt = require('bcrypt');
+const saltRounds = 10;//Mas cpu, mas seguridad. we should choose
+
+
+//fin cosas login
+
+
+router.post('/create', function(req, res) 
+
+{
+
+  bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
+
+models.User.create({
+    username: req.body.username,
+    password: hash,
+    email: req.body.email,
+    address: req.body.address,
+    wishlist: req.body.wishlist
+
   }).then(function() {
     res.redirect('/');
   });
+
+});
+  
 });
 
 router.get('/:user_id/destroy', function(req, res) {

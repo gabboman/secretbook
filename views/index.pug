@@ -7,6 +7,10 @@ block content
   h2 Creating a new user
   form(action="/users/create", method="post")
     input(type="text", name="username")
+    input(type="password", name="password")
+    input(type="email", name="email")
+    input(type="text", name="address")
+    input(type="text", name="wishlist")
     input(type="submit")
 
   h2 Users
